@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="How to build responsive bar charts with the Bokeh data visualization library, Flask and Pyton 3.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Responsive Bar Charts with Bokeh, Flask and Python 3">
+<meta name="twitter:image" content="https://www.fullstackpython.com/img/170526-bar-charts-bokeh-flask/header.jpg">
+<meta name="twitter:site" content="@fullstackpython">
+<meta name="twitter:creator" content="@mattmakai">
+<meta property="og:url" content="https://www.fullstackpython.com/blog/responsive-bar-charts-bokeh-flask-python-3.html">
+<meta property="og:title" content="Responsive Bar Charts with Bokeh, Flask and Python 3">
+<meta property="og:description" content="How to build responsive bar charts with the Bokeh data visualization library, Flask and Pyton 3. Great post on fullstackpython.com!">
+<meta property="og:image" content="https://www.fullstackpython.com/img/170526-bar-charts-bokeh-flask/header.jpg">
+<link rel="canonical" href="https://www.fullstackpython.com/blog/responsive-bar-charts-bokeh-flask-python-3.html">
+<title>Responsive Bar Charts with Bokeh, Flask and Python 3 - Full Stack Python</title> <style>hr,img{border:0}*,:after,:before{box-sizing:border-box}html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-size:18px;background:#fefefe}body{margin:0;font:18px Georgia,serif;line-height:1.4;color:#222;padding:0}img{vertical-align:middle}hr{height:0;box-sizing:content-box;margin:21px 0;border-top:1px solid #eee}h1,h2,h3,h4,h5,h6{font-family:"Helvetica Neue",sans-serif;font-weight:500;line-height:1.1;color:#000}h1,h2,h3{margin:32px 0 6px}h1{font-size:40px}h2{font-size:28px}h3{font-size:22px}h4,h5,h6{margin:11px 0;font-size:18px}p{margin:0 0 12px}ol,ul{margin:0 0 10px}code,pre{font:"Courier New",monospace;border-radius:4px;background-color:#f4f9ff;font-size:12px}code{padding:2px 4px;white-space:nowrap}pre{overflow:scroll;white-space:pre;display:block;padding:10px;margin:0 0 11px;line-height:1.4;word-break:break-all;word-wrap:break-word;border:1px solid #ccc}.cn{padding:0 15px 0 15px;margin-right:auto;margin-left:auto}.cn:before,.cn:after{display:table;content:" "}.cn:after{clear:both}.row:before,.row:after{display:table;content:" "}.row:after{clear:both}.c2,.c3,.c4,.c5,.c6,.c7,.c8,.c9,.c10,.c11,.c12{position:relative;min-height:1px;padding:0 15px 0 15px}a{background:transparent;text-decoration:none;border-bottom:1px dotted;color:#444}a:hover{text-decoration:none;color:#000}.ft{padding:0 0 24px;float:right}.sns{font-family:"Helvetica Neue",sans-serif}.sps{font-size:14px}.hd{margin:20px 0 15px 0}.hd>a{border-bottom:none}img.hdr{vertical-align:middle;border:none;height:52px;width:52px;padding:1px}.hdt a,.hdt a:hover{font:72px "Helvetica Neue",sans-serif;font-weight:normal;letter-spacing:.03em;vertical-align:middle;margin-left:5px;color:#000;text-decoration:none;border-bottom:none;line-height:.9em}.bk{margin:0 7px 0 7px}img.nob{border:none}p.banner{font-weight:500;line-height:1.1;color:#fff;font-size:22px;margin:14px 0 18px 0}.bp{line-height:1.3em}.pn{margin:0 0 21px;background:#fff;border:1px solid transparent;border-radius:4px;border-color:#22b24c}.pnb{padding:15px}.pnb:before,.pnb:after{display:table;content:" "}.pnb:after{clear:both}.pn>.lg{margin-bottom:0}.pn>.lg .lgi{border-width:1px 0;font:14px 'Helvetica Neue',sans-serif;padding:5px 0 5px 10px}.pn>.lg .lgi:first-child{border-top-right-radius:0;border-top-left-radius:0}.pn>.lg .lgi:last-child{border-bottom:0;background-color:#22b24c;color:#fff}.pnh+.lg .lgi:first-child{border-top-width:0}.pnh{padding:10px 15px;border-bottom:1px solid transparent;border-top-right-radius:3px;border-top-left-radius:3px;color:#468847;background-color:#22b24c;border-color:#22b24c}.pn>.pnh>h3{margin:5px 0 0 0;color:#fff}.pn>.pnh>h3>a{color:#fff}.pn>.lg a.lgi.sbc{padding-left:27px}.pn>.lg a.lgi.sbc2{padding-left:35px}#sb{margin-top:40px}.lg{padding-left:0;margin-bottom:20px}.lgi{position:relative;display:block;padding:10px 15px;margin-bottom:-1px;background-color:#fff;border:1px solid #ddd}.lgi:first-child{border-top-right-radius:4px;border-top-left-radius:4px}.lgi:last-child{margin-bottom:0;border-bottom-right-radius:4px;border-bottom-left-radius:4px}a.lgi{color:#333}a.lgi:hover,a.lgi:focus{background:#ddd}a.lgi.active{z-index:2;background:#444;color:#fff;border:1px solid #222}.btn-full{width:100%;box-shadow:1px 2px 1px #222;padding-bottom:4px}p.under-btn{text-align:left;margin-top:20px}th{text-align:left;font-family:"Helvetica Neue",sans-serif}td{padding-right:20px}blockquote{border-left:4px solid #aaa;padding-left:10px;font-family:"Helvetica Neue"}.well{min-height:20px;padding:19px;margin:0 0 20px;background-color:#f5f5f5;border:1px solid #e3e3e3;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,0.05)}.see-also{margin-top:20px;background:#22B24C;color:#eee;font-family:"Helvetica Neue",sans-serif}.see-also a{color: #fff}.highlight{background:#ffff00}.form-control{display:block;width:100%;height:39px;padding:8px 12px;font-size:14px;color:#777;vertical-align:middle;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}.form-control:focus{border-color:#66afe9;outline:0;box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6)}.btn{display:inline-block;padding:8px 12px;margin-bottom:0;font-size:15px;line-height:1.4;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;border:1px solid transparent;border-radius:4px;color:#fff;background-color:#22b24c;border-color:#22b24c}.btn:active,.btn.active{background-image:none;outline:0;box-shadow:inset 0 3px 5px rgba(0,0,0,0.125)}img.rnd{border:1px solid #ccc;border-radius:5px}.shot{border-radius:5px}.outl{border: 1px solid #ccc}.talk{margin-bottom:22px}#carbonads { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; } #carbonads { display: flex; max-width: 330px; background-color: hsl(0, 0%, 98%); box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, .1); } #carbonads a { color: inherit; text-decoration: none; } #carbonads a:hover { color: inherit; } #carbonads span { position: relative; display: block; overflow: hidden; } #carbonads .carbon-wrap { display: flex; } .carbon-img { display: block; margin: 0; line-height: 1; } .carbon-img img { display: block; } .carbon-text { font-size: 13px; padding: 10px; line-height: 1.5; text-align: left; } .carbon-poweredby { display: block; padding: 8px 10px; background: repeating-linear-gradient(-45deg, transparent, transparent 5px, hsla(0, 0%, 0%, .025) 5px, hsla(0, 0%, 0%, .025) 10px) hsla(203, 11%, 95%, .4); text-align: center; text-transform: uppercase; letter-spacing: .5px; font-weight: 600; font-size: 9px; line-height: 1; }@media (min-width:750px){.cn{width:730px}}@media (min-width:768px){.cn{width:750px}#full-toc{display:block}#mobile-toc{display:none}.c3,.c4,.c6,.c8,.c9,.c12{float:left}.c12{width:100%} .c9{width:75%} .c6{width:50%} .c8{width:66.66666666666666%} .c4{width:33.33333333333333%} .c3{width:25%} .co1{margin-left:8.333333333333332%} .select-next{min-height:300px}}@media (min-width:940px){.cn{width:920px}}@media (min-width:1140px){.cn{width:1120px}}.row{margin-right:-15px;margin-left:-15px} @media (max-width:767px){#full-toc{display:none} .desktop-only{display:none} pre{overflow-wrap:normal;word-wrap:normal;word-break:keep-all} .hd{padding:8px 0 10px; margin:0} .hdt a,.hdt a:hover{font-size:34px} h1{font-size:28px} h2{font-size:24px} img.hdr{height:26px;width:26px} pre{font-size:60%}} @media (min-width:1140px){.select-next{min-height:220px}}</style><link rel="shortcut icon" href="https://www.fullstackpython.com/img/fsp-fav.png">
+<script id="_carbonads_projs" type="text/javascript" src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/CE7DP2QI.js"></script></head>
+<body>
+<div class="cn">
+<div class="row"><div class="c12"><div class="hd"><a href="https://www.fullstackpython.com/"><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/f.png" class="hdr" alt="Full Stack Python logo"></a><span class="hdt"> <a href="https://www.fullstackpython.com/">Full Stack Python</a></span></div><div class="sns">
+<a href="https://www.fullstackpython.com/table-of-contents.html">All topics</a> <span class="bk">|</span>
+<a href="https://www.fullstackpython.com/blog.html">Blog</a> <span class="bk">|</span>
+
+<a href="https://twitter.com/fullstackpython">@fullstackpython</a> <span class="bk">|</span>
+<a href="https://www.facebook.com/fullstackpython">Facebook</a> <span class="bk">|</span>
+<a href="https://www.deploypython.com/">Books &amp; Videos</a> <span class="bk">|</span>
+<a href="https://www.fullstackpython.com/change-log.html">What's new?</a>
+</div></div></div><div class="row">
+<div class="c12">
+<h1 style="font-size: 36px;">Responsive Bar Charts with Bokeh, Flask and Python 3</h1>
+<div style="font-size:12px;color:#666;margin:0 0 10px">
+Post updated by
+<a href="">Matt Makai</a>
+on July 30, 2017. Originally posted
+on May 26, 2017.
+</div>
+</div>
+</div>
+<div class="row">
+<div class="c9">
+<p><a href="https://www.fullstackpython.com/bokeh.html">Bokeh</a> is a powerful open source Python library that allows
+developers to generate JavaScript data visualizations for their web
+applications <em>without writing any JavaScript</em>. While learning a
+JavaScript-based data visualization library like <a href="https://d3js.org/">d3.js</a>
+can be useful, it's often far easier to knock out a few lines of Python
+code to get the job done.</p>
+<p>With Bokeh, we can create incredibly detailed interactive visualizations,
+or just traditional ones like the following bar chart.</p>
+<p><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/chart-example-64.png" class="technical-diagram img-rounded" style="border:1px solid #ccc" alt="Responsive Bokeh bar chart with 64 bars." width="100%"></p>
+<p>Let's use the
+<a href="https://www.fullstackpython.com/flask.html">Flask</a> <a href="https://www.fullstackpython.com/web-frameworks.html">web framework</a> with Bokeh to
+create custom bar charts in a Python web app.</p>
+<h2>Our Tools</h2>
+<p>This tutorial works with either <a href="https://www.fullstackpython.com/python-2-or-3.html">Python 2 or 3</a>,
+but Python 3 is strongly recommended for new applications. I used
+<a href="https://www.python.org/downloads/release/python-361/">Python 3.6.1</a> while
+writing this post. In addition to Python throughout this tutorial we
+will also use the following
+<a href="https://www.fullstackpython.com/application-dependencies.html">application dependencies</a>: </p>
+<ul>
+<li><a href="https://www.fullstackpython.com/flask.html">Flask</a> web framework,
+<a href="https://github.com/pallets/flask/releases/tag/0.12.2">version 0.12.2</a></li>
+<li><a href="https://www.fullstackpython.com/bokeh.html">Bokeh</a> data visualization library,
+<a href="https://github.com/bokeh/bokeh/releases/tag/0.12.5">version 0.12.5</a></li>
+<li><a href="https://www.fullstackpython.com/pandas.html">pandas</a> data structures and analysis library,
+<a href="https://github.com/pandas-dev/pandas/releases/tag/v0.20.1">version 0.20.1</a></li>
+<li><a href="https://pip.pypa.io/en/stable/">pip</a> and
+<a href="https://virtualenv.pypa.io/en/latest/">virtualenv</a>, which come
+packaged with Python 3, to install and isolate the Flask, Bokeh,
+and pandas libraries from any other Python projects you might be
+working on</li>
+</ul>
+<p>If you need help getting your
+<a href="https://www.fullstackpython.com/development-environments.html">development environment</a> configured
+before running this code, take a look at
+<a href="https://www.fullstackpython.com/blog/python-3-flask-green-unicorn-ubuntu-1604-xenial-xerus.html">this guide for setting up Python 3 and Flask on Ubuntu 16.04 LTS</a></p>
+<p>All code in this blog post is available open source under the MIT license
+on GitHub under the
+<a href="https://github.com/fullstackpython/blog-code-examples">bar-charts-bokeh-flask-python-3 directory of the blog-code-examples repository</a>.
+Use and abuse the source code as you like for your own applications.</p>
+<h2>Installing Bokeh and Flask</h2>
+<p>Create a fresh virtual environment for this project to isolate our
+dependencies using the following command in the terminal. I typically run
+this command within a separate <code>venvs</code> directory where all my virtualenvs
+are store.</p>
+<div class="highlight"><pre><span></span>python3 -m venv barchart
+</pre></div>
+<p>Activate the virtualenv.</p>
+<div class="highlight"><pre><span></span><span class="nb">source</span> barchart/bin/activate
+</pre></div>
+<p>The command prompt will change after activating the virtualenv:</p>
+<p><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/activate-virtualenv.png" class="technical-diagram img-rounded" style="border:1px solid #ccc" alt="Activating our Python virtual environment on the command line." width="100%"></p>
+<p>Keep in mind that you need to activate the virtualenv in every new terminal
+window where you want to use the virtualenv to run the project.</p>
+<p>Bokeh and Flask are installable into the now-activated virtualenv
+using pip. Run this command to get the appropriate Bokeh and Flask
+versions.</p>
+<div class="highlight"><pre><span></span>pip install bokeh==0.12.5 flask==0.12.2 pandas==0.20.1
+</pre></div>
+<p>After a brief download and installation period our required dependencies
+should be installed within our virtualenv. Look for output to confirm
+everything worked.</p>
+<div class="highlight"><pre><span></span>Installing collected packages: six, requests, PyYAML, python-dateutil, MarkupSafe, Jinja2, numpy, tornado, bokeh, Werkzeug, itsdangerous, click, flask, pytz, pandas
+  Running setup.py install for PyYAML ... done
+  Running setup.py install for MarkupSafe ... done
+  Running setup.py install for tornado ... done
+  Running setup.py install for bokeh ... done
+  Running setup.py install for itsdangerous ... done
+Successfully installed Jinja2-2.9.6 MarkupSafe-1.0 PyYAML-3.12 Werkzeug-0.12.2 bokeh-0.12.5 click-6.7 flask-0.12.2 itsdangerous-0.24 numpy-1.12.1 pandas-0.20.1 python-dateutil-2.6.0 pytz-2017.2 requests-2.14.2 six-1.10.0 tornado-4.5.1
+</pre></div>
+<p>Now we can start building our web application.</p>
+<h2>Starting Our Flask App</h2>
+<p>We are going to first code a basic Flask application then add our bar
+chart to the rendered page.</p>
+<p>Create a folder for your project then within it create a file named
+<code>app.py</code> with these initial contents:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">"/&lt;int:bars_count&gt;/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">chart</span><span class="p">(</span><span class="n">bars_count</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">bars_count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bars_count</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">"chart.html"</span><span class="p">,</span> <span class="n">bars_count</span><span class="o">=</span><span class="n">bars_count</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+<p>The above code is a short one-route <a href="https://www.fullstackpython.com/flask.html">Flask</a> application
+that defines the <code>chart</code> function. <code>chart</code> takes in an arbitrary integer
+as input which will later be used to define how much data we want in our
+bar chart. The <code>render_template</code> function within <code>chart</code> will use a template
+from Flask's default <a href="https://www.fullstackpython.com/template-engines.html">template engine</a> named
+<a href="https://www.fullstackpython.com/jinja2.html">Jinja2</a> to output HTML. </p>
+<p>The last two lines in the allow us to run the Flask application from the
+command line on port 5000 in debug mode. Never use debug mode for production,
+that's what <a href="https://www.fullstackpython.com/wsgi-servers.html">WSGI servers</a> like
+<a href="https://www.fullstackpython.com/green-unicorn-gunicorn.html">Gunicorn</a> are built for.</p>
+<p>Create a subdirectory within your project folder named <code>templates</code>. Within
+<code>templates</code> create a file name <code>chart.html</code>. <code>chart.html</code> was referenced in
+the <code>chart</code> function of our <code>app.py</code> file so we need to create it before our
+app will run properly. Populate <code>chart.html</code> with the following
+<a href="https://www.fullstackpython.com/jinja2.html">Jinja2</a> markup.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Bar charts with Bokeh!<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Bugs found over the past <span class="cp">{{</span> <span class="nv">bars_count</span> <span class="cp">}}</span> days<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+<p><code>chart.html</code>'s boilerplate displays the number of bars passed into the
+<code>chart</code> function via the URL. </p>
+<p>The <code>&lt;h1&gt;</code> tag's message on the number of bugs found goes along with our
+sample app's theme. We will pretend to be charting the number of bugs
+found by automated tests run each day.</p>
+<p>We can test our application out now.</p>
+<p>Make sure your virtualenv is still activated and that you are in the
+base directory of your project where <code>app.py</code> is located. Run <code>app.py</code>
+using the <code>python</code> command.</p>
+<div class="highlight"><pre><span></span>$(barchart) python app.py
+</pre></div>
+<p>Go to <a href="http://localhost:5000/16/">localhost:5000/16/</a> in your web browser.
+You should see a large message that changes when you modify the URL.</p>
+<p><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/basic-app-no-chart.png" class="technical-diagram img-rounded" style="border:1px solid #ccc" alt="Simple Flask app without bar chart" width="100%"></p>
+<p>Our simple Flask route is in place but that's not very exciting. Time
+to add our bar chart.</p>
+<h2>Generating the Bar Chart</h2>
+<p>We can build on the basic Flask app foundation that we just wrote with
+some new Python code that uses <a href="https://www.fullstackpython.com/bokeh.html">Bokeh</a>. </p>
+<p>Open <code>app.py</code> back up and change the top of the file to include the
+following imports.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="p">(</span><span class="n">HoverTool</span><span class="p">,</span> <span class="n">FactorRange</span><span class="p">,</span> <span class="n">Plot</span><span class="p">,</span> <span class="n">LinearAxis</span><span class="p">,</span> <span class="n">Grid</span><span class="p">,</span>
+                          <span class="n">Range1d</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.glyphs</span> <span class="kn">import</span> <span class="n">VBar</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span>
+<span class="kn">from</span> <span class="nn">bokeh.charts</span> <span class="kn">import</span> <span class="n">Bar</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed</span> <span class="kn">import</span> <span class="n">components</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.sources</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
+</pre></div>
+<p>Throughout the rest of the file we will need these Bokeh imports along
+with the <code>random</code> module to generate data and our bar chart.</p>
+<p>Our bar chart will use "software bugs found" as a theme. The data will
+be randomly generated each time the page is refreshed. In a real application
+you'd have a more stable and useful data source!</p>
+<p>Continue modifying <code>app.py</code> so the section after the imports looks like
+the following code. </p>
+<div class="highlight"><pre><span></span><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">"/&lt;int:bars_count&gt;/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">chart</span><span class="p">(</span><span class="n">bars_count</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">bars_count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bars_count</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"days"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"bugs"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"costs"</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bars_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">'days'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">'bugs'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">'costs'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">1.00</span><span class="p">,</span> <span class="mf">1000.00</span><span class="p">))</span>
+
+    <span class="n">hover</span> <span class="o">=</span> <span class="n">create_hover_tool</span><span class="p">()</span>
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">create_bar_chart</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"Bugs found per day"</span><span class="p">,</span> <span class="s2">"days"</span><span class="p">,</span>
+                            <span class="s2">"bugs"</span><span class="p">,</span> <span class="n">hover</span><span class="p">)</span>
+    <span class="n">script</span><span class="p">,</span> <span class="n">div</span> <span class="o">=</span> <span class="n">components</span><span class="p">(</span><span class="n">plot</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">"chart.html"</span><span class="p">,</span> <span class="n">bars_count</span><span class="o">=</span><span class="n">bars_count</span><span class="p">,</span>
+                           <span class="n">the_div</span><span class="o">=</span><span class="n">div</span><span class="p">,</span> <span class="n">the_script</span><span class="o">=</span><span class="n">script</span><span class="p">)</span>
+</pre></div>
+<p>The <code>chart</code> function gains three new lists that are randomly generated
+by
+<a href="https://docs.python.org/3/library/random.html">Python 3's super-handy random module</a>.</p>
+<p><code>chart</code> calls two functions, <code>create_hover_tool</code> and <code>create_bar_chart</code>.
+We haven't written those functions yet so continue adding code below <code>chart</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_hover_tool</span><span class="p">():</span>
+    <span class="c1"># we'll code this function in a moment</span>
+    <span class="k">return</span> <span class="bp">None</span>
+
+
+<span class="k">def</span> <span class="nf">create_bar_chart</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">x_name</span><span class="p">,</span> <span class="n">y_name</span><span class="p">,</span> <span class="n">hover_tool</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                     <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+    <span class="sd">"""Creates a bar chart plot with the exact styling for the centcom</span>
+<span class="sd">       dashboard. Pass in data as a dictionary, desired plot title,</span>
+<span class="sd">       name of x axis, y axis and the hover tool HTML.</span>
+<span class="sd">    """</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">xdr</span> <span class="o">=</span> <span class="n">FactorRange</span><span class="p">(</span><span class="n">factors</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">x_name</span><span class="p">])</span>
+    <span class="n">ydr</span> <span class="o">=</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">y_name</span><span class="p">])</span><span class="o">*</span><span class="mf">1.5</span><span class="p">)</span>
+
+    <span class="n">tools</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">hover_tool</span><span class="p">:</span>
+        <span class="n">tools</span> <span class="o">=</span> <span class="p">[</span><span class="n">hover_tool</span><span class="p">,]</span>
+
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="n">xdr</span><span class="p">,</span> <span class="n">y_range</span><span class="o">=</span><span class="n">ydr</span><span class="p">,</span> <span class="n">plot_width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                  <span class="n">plot_height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">h_symmetry</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">v_symmetry</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">min_border</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">toolbar_location</span><span class="o">=</span><span class="s2">"above"</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="n">tools</span><span class="p">,</span>
+                  <span class="n">responsive</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">outline_line_color</span><span class="o">=</span><span class="s2">"#666666"</span><span class="p">)</span>
+
+    <span class="n">glyph</span> <span class="o">=</span> <span class="n">VBar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_name</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">y_name</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=.</span><span class="mi">8</span><span class="p">,</span>
+                 <span class="n">fill_color</span><span class="o">=</span><span class="s2">"#e12127"</span><span class="p">)</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">glyph</span><span class="p">)</span>
+
+    <span class="n">xaxis</span> <span class="o">=</span> <span class="n">LinearAxis</span><span class="p">()</span>
+    <span class="n">yaxis</span> <span class="o">=</span> <span class="n">LinearAxis</span><span class="p">()</span>
+
+    <span class="n">plot</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">Grid</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ticker</span><span class="o">=</span><span class="n">xaxis</span><span class="o">.</span><span class="n">ticker</span><span class="p">))</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">Grid</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ticker</span><span class="o">=</span><span class="n">yaxis</span><span class="o">.</span><span class="n">ticker</span><span class="p">))</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">min_border_top</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">xgrid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">ygrid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="s2">"#999999"</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="s2">"Bugs found"</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">ygrid</span><span class="o">.</span><span class="n">grid_line_alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="s2">"Days after app deployment"</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">major_label_orientation</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">plot</span>
+</pre></div>
+<p>There is a whole lot of new code above so let's break it down. The
+<code>create_hover_tool</code> function does not do anything yet, it simply
+returns <code>None</code>, which we can use if we do not want a hover tool. The hover
+tool is an overlay that appears when we move our mouse cursor over one of
+the bars or touch a bar on a touchscreen so we can see more data about the
+bar.</p>
+<p>Within the <code>create_bar_chart</code> function we take in our generated data source
+and convert it into a <code>ColumnDataSource</code> object that is one type of input
+object we can pass to Bokeh functions. We specify two ranges for the chart's
+x and y axes.</p>
+<p>Since we do not yet have a hover tool the <code>tools</code> list will remain empty.
+The line where we create <code>plot</code> using the <code>figure</code> function is where a lot of
+the magic happens. We specify all the parameters we want our graph to have
+such as the size, toolbar, borders and whether or not the graph should be
+responsive upon changing the web browser size.</p>
+<p>We create vertical bars with the <code>VBar</code> object and add them to the plot using
+the <code>add_glyph</code> function that combines our source data with the <code>VBar</code>
+specification.</p>
+<p>The last lines of the function modify the look and feel of the graph. For
+example I took away the <code>Bokeh</code> logo by specifying <code>plot.toolbar.logo = None</code>
+and added labels to both axes. I recommend keeping the
+<a href="http://bokeh.pydata.org/en/latest/docs/reference/plotting.html#bokeh-plotting">bokeh.plottin</a>
+documentation open to know what your options are for customizing your
+visualizations.</p>
+<p>We just need a few updates to our <code>templates/chart.html</code> file to display
+the visualization. Open the file and add these 6 lines to the file.
+Two of these lines are for the required CSS, two are JavaScript Bokeh
+files and the remaining two are the generated chart.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Bar charts with Bokeh!<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">"http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.0.min.css"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Bugs found over the past <span class="cp">{{</span> <span class="nv">bars_count</span> <span class="cp">}}</span> days<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">the_div</span><span class="o">|</span><span class="nf">safe</span> <span class="cp">}}</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">the_script</span><span class="o">|</span><span class="nf">safe</span> <span class="cp">}}</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+<p>Alright, let's give our app a try with a simple chart of 4 bars. The
+Flask app should automatically reload when you save <code>app.py</code> with the new
+code but if you shut down the development server fire it back up with the
+<code>python app.py</code> command.</p>
+<p>Open your browser to <a href="localhost:5000/4/">localhost:5000/4/</a>.</p>
+<p><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/chart-example-4.png" class="technical-diagram img-rounded" style="border:1px solid #ccc" alt="Responsive Bokeh bar chart with 4 bars." width="100%"></p>
+<p>That one looks a bit sparse, so we can crank it up by 4x to 16 bars
+by going to <a href="localhost:5000/16/">localhost:5000/16/</a>.</p>
+<p><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/chart-example-16.png" class="technical-diagram img-rounded" style="border:1px solid #ccc" alt="Responsive Bokeh bar chart with 16 bars." width="100%"></p>
+<p>Now another 4x to 128 bars with <a href="localhost:5000/128/">localhost:5000/128/</a>...</p>
+<p><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/chart-example-128.png" class="technical-diagram img-rounded" style="border:1px solid #ccc" alt="Responsive Bokeh bar chart with 128 bars." width="100%"></p>
+<p>Looking good so far. But what about that hover tool to drill down into each
+bar for more data? We can add the hover with just a few lines of code
+in the <code>create_hover_tool</code> function.</p>
+<h2>Adding a Hover Tool</h2>
+<p>Within <code>app.py</code> modify the <code>create_hover_tool</code> to match the following
+code.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_hover_tool</span><span class="p">():</span>
+    <span class="sd">"""Generates the HTML for the Bokeh's hover data tool on our graph."""</span>
+    <span class="n">hover_html</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">      &lt;div&gt;</span>
+<span class="s2">        &lt;span class="hover-tooltip"&gt;$x&lt;/span&gt;</span>
+<span class="s2">      &lt;/div&gt;</span>
+<span class="s2">      &lt;div&gt;</span>
+<span class="s2">        &lt;span class="hover-tooltip"&gt;@bugs bugs&lt;/span&gt;</span>
+<span class="s2">      &lt;/div&gt;</span>
+<span class="s2">      &lt;div&gt;</span>
+<span class="s2">        &lt;span class="hover-tooltip"&gt;$@costs{0.00}&lt;/span&gt;</span>
+<span class="s2">      &lt;/div&gt;</span>
+<span class="s2">    """</span>
+    <span class="k">return</span> <span class="n">HoverTool</span><span class="p">(</span><span class="n">tooltips</span><span class="o">=</span><span class="n">hover_html</span><span class="p">)</span>
+</pre></div>
+<p>It may look really odd to have HTML embedded within your Python application,
+but that's how we specify what the hover tool should display. We use
+<code>$x</code> to show the bar's x axis, <code>@bugs</code> to show the "bugs" field from our
+data source, and <code>$@costs{0.00}</code> to show the "costs" field formatted as
+a dollar amount with exactly 2 decimal places.</p>
+<p>Make sure you changed <code>return None</code> to <code>return HoverTool(tooltips=hover_html)</code>
+so we can see the results of our new function in the graph.</p>
+<p>Head back to the browser and reload the
+<a href="http://localhost:5000/128">localhost:5000/128/</a> page.</p>
+<p><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/chart-example-128-hover-tool.png" class="technical-diagram img-rounded" style="border:1px solid #ccc" alt="Responsive Bokeh bar chart with 128 bars and showing the hover tool." width="100%"></p>
+<p>Nice work! Try playing around with the number of bars in the URL and the
+window size to see what the graph looks like under different conditions.</p>
+<p>The chart gets crowded with more than 100 or so bars, but you can give
+it a try with whatever number of bars you want. Here is what an
+impractical amount of 50,000 bars looks like just for the heck of it:</p>
+<p><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/chart-example-50000.png" class="technical-diagram img-rounded" style="border:1px solid #ccc" alt="Responsive Bokeh bar chart with 50000 bars." width="100%"></p>
+<p>Yea, we may need to do some additional work to display more than a few
+hundred bars at a time.</p>
+<h2>What's next?</h2>
+<p>You just created a nifty configurable bar chart in Bokeh. Next you can
+modify the color scheme, change the input data source, try to create other
+types of charts or solve how to display very large numbers of bars.</p>
+<p>There is a lot more than Bokeh can do, so be sure to check out the
+<a href="http://bokeh.pydata.org/en/latest/">official project documentation</a> ,
+<a href="https://github.com/bokeh/bokeh">GitHub repository</a>,
+the <a href="https://www.fullstackpython.com/bokeh.html">Full Stack Python Bokeh page</a> or take a look at
+<a href="https://www.fullstackpython.com/table-of-contents.html">other topics on Full Stack Python</a>.</p>
+<p>Questions? Let me know via
+<a href="https://github.com/mattmakai/fullstackpython.com/issues">a GitHub issue ticket on the Full Stack Python repository</a>,
+on Twitter
+<a href="https://twitter.com/fullstackpython">@fullstackpython</a>
+or <a href="https://twitter.com/mattmakai">@mattmakai</a>.</p>
+<p>See something wrong in this blog post? Fork
+<a href="https://github.com/mattmakai/fullstackpython.com/blob/master/content/posts/170526-bar-charts-bokeh.markdown">this page's source on GitHub</a>
+and submit a pull request.</p>
+</div>
+<div class="c3">
+<div class="pn">
+<div class="pnb">
+<script async="" src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/analytics.js"></script><script async="" type="text/javascript" src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/carbon.js" id="_carbonads_js"></script><div id="carbonads"><span><span class="carbon-wrap"><a href="https://srv.carbonads.net/ads/click/x/GTND42QYCEYIPK77CEBLYKQMFTBDT2JJF6BDVZ3JCWADVK3WCWYIEK3KC6BIE23JF6BDVK3EHJNCLSIZ?segment=placement:wwwfullstackpythoncom;" class="carbon-img" target="_blank" rel="noopener sponsored"><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/1583431895-CarbonAds_POD.jpg" alt="ads via Carbon" style="max-width: 130px;" border="0"></a><a href="https://srv.carbonads.net/ads/click/x/GTND42QYCEYIPK77CEBLYKQMFTBDT2JJF6BDVZ3JCWADVK3WCWYIEK3KC6BIE23JF6BDVK3EHJNCLSIZ?segment=placement:wwwfullstackpythoncom;" class="carbon-text" target="_blank" rel="noopener sponsored">Don’t just create a website. Showcase &amp; sell your work in one place with Shopify</a></span><a href="http://carbonads.net/?utm_source=wwwfullstackpythoncom&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon" class="carbon-poweredby" target="_blank" rel="noopener sponsored">ads via Carbon</a><img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/B23720837.269478642%3bdc_trk_aid=464023124%3bd" style="display: none;" alt="ads via Carbon" width="1" height="1" border="0"></span></div>
+</div>
+</div><div class="pn">
+<div class="pnh">
+<h3><a href="https://www.fullstackpython.com/table-of-contents.html">More Resources</a></h3>
+</div>
+<img src="Responsive%20Bar%20Charts%20with%20Bokeh,%20Flask%20and%20Python%203%20-%20Full%20Stack%20Python_files/header.jpg" alt="Python, Flask and Bokeh logos." width="100%">
+<div class="lg">
+<a href="https://www.fullstackpython.com/bokeh.html" class="lgi">Bokeh</a>
+<a href="https://www.fullstackpython.com/web-frameworks.html" class="lgi">Web Frameworks</a>
+<a href="https://www.fullstackpython.com/flask.html" class="lgi">Flask</a>
+<a href="https://www.fullstackpython.com/deployment.html" class="lgi">Deployment</a>
+<a href="https://www.fullstackpython.com/ubuntu.html" class="lgi">Ubuntu</a>
+<a href="https://www.fullstackpython.com/wsgi-servers.html" class="lgi">WSGI Servers</a>
+<a href="https://www.fullstackpython.com/green-unicorn-gunicorn.html" class="lgi">Green Unicorn (Gunicorn)</a>
+<a href="http://bokeh.pydata.org/en/latest/" class="lgi">Official Bokeh Docs <svg width="20" height="12" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1408 928v320q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h704q14 0 23 9t9 23v64q0 14-9 23t-23 9h-704q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113v-320q0-14 9-23t23-9h64q14 0 23 9t9 23zm384-864v512q0 26-19 45t-45 19-45-19l-176-176-652 652q-10 10-23 10t-23-10l-114-114q-10-10-10-23t10-23l652-652-176-176q-19-19-19-45t19-45 45-19h512q26 0 45 19t19 45z"></path></svg></a>
+<a href="https://github.com/fullstackpython/blog-code-examples/tree/master/bar-charts-bokeh-flask-python-3" class="lgi">Code for this post <svg width="20" height="12" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1408 928v320q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h704q14 0 23 9t9 23v64q0 14-9 23t-23 9h-704q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113v-320q0-14 9-23t23-9h64q14 0 23 9t9 23zm384-864v512q0 26-19 45t-45 19-45-19l-176-176-652 652q-10 10-23 10t-23-10l-114-114q-10-10-10-23t10-23l652-652-176-176q-19-19-19-45t19-45 45-19h512q26 0 45 19t19 45z"></path></svg></a> <a href="https://www.fullstackpython.com/table-of-contents.html" class="lgi">...or view all topics.</a>
+</div>
+</div> </div>
+</div>
+<hr></div>
+<div class="cn"><div class="ft sns"><a href="https://www.fullstackpython.com/about-author.html">Matt Makai</a> <a href="https://www.fullstackpython.com/change-log.html">2012-2020</a></div></div>
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-19910497-7', 'auto'); ga('send', 'pageview');</script>
+
+
+</body></html>
